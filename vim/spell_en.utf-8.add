@@ -1,0 +1,8 @@
+config
+localhost
+bspwm
+PartOf
+ExecStart
+ExecStop
+WantedBy
+ExecReload

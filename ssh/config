@@ -1,0 +1,18 @@
+Host *
+    # Send keep-alive every 30s, disconnect if sent 5 times with no response
+    ServerAliveInterval 30
+    ServerAliveCountMax 5
+    Compression yes
+    # Share multiple ssh session along one connection, this reduce the time cost on reconnection
+    ControlMaster auto
+    ControlPath /tmp/ssh-%r@%h:%p
+    # Increase the valid time of a connection
+    ControlPersist 30m
+Host github.com
+    # Proxy, please install openbsd-netcat
+    ProxyCommand nc -v -x 192.168.2.212:10800 %h %p
+    User git
+    IdentityFile ~/.ssh/id_ed25519.key
+Host Ndoskrnl-1
+    User proteus
+    IdentityFile ~/sync-work/0x03keys/surface-id_ed25519
