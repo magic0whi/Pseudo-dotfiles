@@ -1,0 +1,1 @@
+ADD a function that can do checksum for the current configs

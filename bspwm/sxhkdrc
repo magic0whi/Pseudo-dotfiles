@@ -22,7 +22,7 @@ super + Escape
 super + alt + {q,r}
 	bspc {quit,wm -r}
 
-# close and kill
+# close and kill, '_' is a placeholder for no key
 super + {_,shift + }w
 	bspc node -{c,k}
 
