@@ -1,1 +1,2 @@
 ADD a function that can do checksum for the current configs
+Using json to store target path.

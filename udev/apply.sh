@@ -1,3 +1,3 @@
-!#/bin/bash
+#!/bin/bash
 
-cp 99-lowbat.rules /etc/udev/rules.d/99-lowbat.rules
+cp 50-usb-ssd-trim.rules /etc/udev/rules.d/50-usb-ssd-trim.rules
