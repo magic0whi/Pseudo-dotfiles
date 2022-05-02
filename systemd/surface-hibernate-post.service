@@ -1,0 +1,10 @@
+[Unit]
+Description=Reload SP4's bluetooth adapter after hibernate (Post)
+After=hibernate.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/modprobe mwifiex_pcie mwifiex
+
+[Install]
+WantedBy=hibernate.target

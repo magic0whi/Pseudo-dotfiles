@@ -5,6 +5,7 @@ if xdo id -a "$PANEL_WM_NAME" > /dev/null ; then
     exit 1
 fi
 
+# 'kill 0' send TERM to the shell that issued this command
 trap 'trap - TERM; kill 0' INT TERM QUIT EXIT
 
 [ -e "$PANEL_FIFO" ] && rm "$PANEL_FIFO"
