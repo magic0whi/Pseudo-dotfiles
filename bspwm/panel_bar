@@ -20,6 +20,7 @@ while read -r line ; do
 			# bspwm's state
 			wm=
 			IFS=':'
+            # 'set' don't use Internal Field Separator directly, the content in ${line} was passed already separated by bash
 			set -- ${line#?}
 			while [ $# -gt 0 ] ; do
 				item=$1
