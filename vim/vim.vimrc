@@ -39,6 +39,8 @@ set spelllang=en_us,cjk "Current for cjk Vim is just ignore spell check for thes
 "Disable mouse
 set mouse=
 set ttymouse=
+
+set pastetoggle=<F2>
 "Settings End
 
 filetype plugin on "For netrw

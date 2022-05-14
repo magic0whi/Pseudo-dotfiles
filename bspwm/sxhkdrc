@@ -14,8 +14,13 @@ super + @space
 super + Escape
 	pkill -USR1 -x sxhkd
 
+# turn off screen
 alt + l
-    sleep 0.1; xset dpms force standby
+    sleep 0.1; xset dpms force off
+
+# take a screenshot
+Print
+    shotgun -f png ~/Pictures/Screenshot_$(date -u +'%Y%m%d_%H%M%S').png
 #
 # bspwm hotkeys
 #
@@ -23,7 +28,6 @@ alt + l
 # quit/restart bspwm
 super + alt + {q,r}
     systemctl --user {stop,reload} bspwm.service
-	#bspc {quit,wm -r}
 
 # close and kill, '_' is a placeholder for no key
 super + {_,shift + }w
