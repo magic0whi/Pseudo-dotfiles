@@ -20,7 +20,13 @@ alt + l
 
 # take a screenshot
 Print
-    shotgun -f png ~/Pictures/Screenshot_$(date -u +'%Y%m%d_%H%M%S').png
+    shotgun -f png ~/Pictures/Screenshot_$(date +'%Y%m%d_%H%M%S').png
+
+#Volume Control
+XF86AudioLowerVolume
+    amixer set Master 2%-
+XF86AudioRaiseVolume
+    amixer set Master 2%+
 #
 # bspwm hotkeys
 #
@@ -126,10 +132,4 @@ super + alt + shift + {h,j,k,l}
 # move a floating window
 super + {Left,Down,Up,Right}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
-
-#Volume Control
-XF86AudioLowerVolume
-    amixer set Master 5%-
-XF86AudioRaiseVolume
-    amixer set Master 5%+
 

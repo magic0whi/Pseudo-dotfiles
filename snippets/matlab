@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec env _JAVA_AWT_WM_NONREPARENTING=1 LD_PRELOAD=/usr/lib/libstdc++.so LD_LIBRARY_PATH=/usr/lib/xorg/modules/drivers/ MESA_LOADER_DRIVER_OVERRIDE=iris ~/Matlab/R2022a/bin/matlab -desktop
