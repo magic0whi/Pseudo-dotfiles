@@ -24,9 +24,9 @@ Print
 
 #Volume Control
 XF86AudioLowerVolume
-    amixer set Master 2%-
+    amixer -D default sset Master,0 playback frontleft 2%- frontright 2%-
 XF86AudioRaiseVolume
-    amixer set Master 2%+
+    amixer -D default sset Master,0 playback frontleft 2%+ frontright 2%+
 #
 # bspwm hotkeys
 #
