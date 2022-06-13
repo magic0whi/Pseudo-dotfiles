@@ -16,3 +16,6 @@ Host github.com
 Host Ndoskrnl-1
     User proteus
     IdentityFile ~/sync-work/0x03keys/surface-id_ed25519
+Host 45.77.189.172 2001:19f0:ac01:1774:5400:03ff:feec:396d
+    User root
+    IdentityFile ~/sync-work/0x03keys/cube-id_ed25519
