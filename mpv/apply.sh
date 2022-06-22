@@ -1,3 +1,3 @@
 #!/bin/sh
 
-cp mpv.conf ~/.config/mpv/mpv.conf
+mkdir -p ~/.config/mpv && cp mpv.conf ~/.config/mpv/mpv.conf
