@@ -22,11 +22,18 @@ alt + l
 Print
     shotgun -f png ~/Pictures/Screenshot_$(date +'%Y%m%d_%H%M%S').png
 
-#Volume Control
+# Volume Control
 XF86AudioLowerVolume
     amixer -D default sset Master,0 playback frontleft 2%- frontright 2%-
 XF86AudioRaiseVolume
     amixer -D default sset Master,0 playback frontleft 2%+ frontright 2%+
+
+XF86MonBrightnessDown
+    echo $(($(cat /sys/class/backlight/intel_backlight/brightness)-9600)) > /sys/class/backlight/intel_backlight/brightness
+ 
+XF86MonBrightnessUp
+    echo $(($(cat /sys/class/backlight/intel_backlight/brightness)+9600)) > /sys/class/backlight/intel_backlight/brightness
+
 #
 # bspwm hotkeys
 #

@@ -1,5 +1,7 @@
 #!/bin/sh
 
+[ -z ~/.config/bspwm ] || mkdir ~/.config/bspwm
+[ -z ~/.config/sxhkd ] || mkdir ~/.config/sxhkd
 cp bspwmrc ~/.config/bspwm/bspwmrc
 cp sxhkdrc ~/.config/sxhkd/sxhkdrc
 sudo cp panel        /usr/local/bin/
