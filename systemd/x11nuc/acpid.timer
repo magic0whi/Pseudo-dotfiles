@@ -1,0 +1,11 @@
+[Unit]
+Description=Auto hibernate when battery level is low (Timer)
+
+[Timer]
+# Run after user systemd startup
+OnStartupSec=2min
+OnUnitActiveSec=2min
+Unit=acpid.service
+
+[Install]
+WantedBy=timers.target

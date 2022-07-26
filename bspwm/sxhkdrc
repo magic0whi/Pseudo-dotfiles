@@ -29,7 +29,12 @@ XF86AudioRaiseVolume
     amixer -D default sset Master,0 playback frontleft 2%+ frontright 2%+
 
 XF86MonBrightnessDown
-    echo $(($(cat /sys/class/backlight/intel_backlight/brightness)-9600)) > /sys/class/backlight/intel_backlight/brightness
+    if [ $(cat /sys/class/backlight/intel_backlight/brightness) -le 9600 ]; \
+    then \
+        echo 0 > /sys/class/backlight/intel_backlight/brightness; \
+    else \
+        echo $(($(cat /sys/class/backlight/intel_backlight/brightness)-9600)) > /sys/class/backlight/intel_backlight/brightness; \
+    fi
  
 XF86MonBrightnessUp
     echo $(($(cat /sys/class/backlight/intel_backlight/brightness)+9600)) > /sys/class/backlight/intel_backlight/brightness

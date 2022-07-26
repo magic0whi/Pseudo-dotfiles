@@ -115,5 +115,11 @@ while read -r line ; do
 			done
 			;;
 	esac
-	printf "%s\n" "%{l}${wm}%{c}${title}%{r}${sys}"
+    #Define the battery
+    Battery() {
+        BATPERC=$(acpi --battery | cut -d, -f2)
+        echo "${BATPERC}"
+    }
+
+	printf "%s\n" "%{l}${wm}%{c}${title}%{r}$(Battery) ${sys}"
 done

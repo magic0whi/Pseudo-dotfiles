@@ -1,0 +1,14 @@
+#!/bin/sh
+DISPLAY=${DISPLAY:-":0"}
+
+cat /sys/class/power_supply/BAT0/{status,capacity} | tr '\n' ' ' | {
+    read -r status capacity
+    echo "$(date) Current battery ${status} ${capacity}" >> /var/log/acpid.log
+
+    if [ "${status}" = 'Discharging' -a "${capacity}" -lt 15 ]
+    then
+        /usr/bin/logger "Critical battery threshold"
+        if [ -e "/usr/bin/Xorg" ]; then xset dpms force on; fi
+        /usr/bin/systemctl hibernate
+    fi
+}

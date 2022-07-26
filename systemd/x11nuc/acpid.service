@@ -1,0 +1,7 @@
+[Unit]
+Description=Auto hibernate when battery level is low (Service)
+
+[Service]
+Type=oneshot
+Environment="DISPLAY=:0"
+ExecStart=/usr/local/bin/acpid
