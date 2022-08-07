@@ -117,9 +117,43 @@ while read -r line ; do
 	esac
     #Define the battery
     Battery() {
-        BATPERC=$(acpi --battery | cut -d, -f2)
-        echo "${BATPERC}"
+		BATPERC=$(acpi --battery | cut -d, -f2)
+		BATICON='\uf244'
+		if [ ${BATPERC%\%} -ge 90 ];then
+    	    BATICON='\uf240'
+    	elif [ ${BATPERC%\%} -ge 75 ];then
+    	    BATICON='\uf241'
+    	elif [ ${BATPERC%\%} -ge 50 ];then
+    	    BATICON='\uf242'
+    	elif [ ${BATPERC%\%} -ge 50 ];then
+    	    BATICON='\uf243'
+    	fi
+        echo -e "${BATICON}${BATPERC}"
+    }
+    Network() {
+        if [[ $(iwctl station wlan0 show | awk '{if (NR == 6) print $2}') == 'connected' ]];then
+            echo -e "\uf1eb$(iwctl station wlan0 show | awk '{if (NR == 7) print $3}')"
+        else
+            echo -e "\uf127"
+        fi
+    }
+    Volume() {
+        VOLUME=$(amixer -D default sget Master,0 | awk '{if (NR == 6) print $5}' | sed 's/\[//;s/]//')
+        VOLUMEICON='\uf6a9'
+        if [ ${VOLUME%\%} -ge 75 ];then
+            VOLUMEICON='\uf028'
+        elif [ ${VOLUME%\%} -ge 25 ];then
+            VOLUMEICON='\uf027'
+        elif [ ${VOLUME%\%} -gt 0 ];then
+            VOLUMEICON='\uf026'
+        fi
+        echo -e "${VOLUMEICON} ${VOLUME}"
+    }
+    Coretemp() {
+        # Package temp
+        PKGTEMP="$(cat /sys/devices/platform/coretemp.0/hwmon/hwmon6/temp1_input)"
+        echo -e "\uf2c7${PKGTEMP::-3}\u00b0C"
     }
 
-	printf "%s\n" "%{l}${wm}%{c}${title}%{r}$(Battery) ${sys}"
+    printf "%s\n" "%{l}${wm}%{c}${title}%{r}$(Coretemp) $(Volume) $(Network) $(Battery) ${sys}"
 done
