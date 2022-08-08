@@ -117,18 +117,23 @@ while read -r line ; do
 	esac
     #Define the battery
     Battery() {
-		BATPERC=$(acpi --battery | cut -d, -f2)
+        declare -i BATPERC=$(acpi --battery | cut -d',' -f2 | sed 's/ //g;s/%//')
 		BATICON='\uf244'
-		if [ ${BATPERC%\%} -ge 90 ];then
+		if [ ${BATPERC} -ge 90 ];then
     	    BATICON='\uf240'
-    	elif [ ${BATPERC%\%} -ge 75 ];then
+    	elif [ ${BATPERC} -ge 75 ];then
     	    BATICON='\uf241'
-    	elif [ ${BATPERC%\%} -ge 50 ];then
+    	elif [ ${BATPERC} -ge 50 ];then
     	    BATICON='\uf242'
-    	elif [ ${BATPERC%\%} -ge 50 ];then
+    	elif [ ${BATPERC} -ge 50 ];then
     	    BATICON='\uf243'
     	fi
-        echo -e "${BATICON}${BATPERC}"
+        if [ $(acpi --battery | sed 's/Battery [0-9]: //' | cut -d, -f1) = 'Unknown' ];then
+            PLUGICON='\uf1e6'
+        elif [ $(acpi --battery | sed 's/Battery [0-9]: //' | cut -d, -f1) = 'Charging' ];then
+            PLUGICON='\uf0e7'
+        fi
+        echo -e "${BATICON}${PLUGICON}${BATPERC}%"
     }
     Network() {
         if [[ $(iwctl station wlan0 show | awk '{if (NR == 6) print $2}') == 'connected' ]];then
@@ -138,22 +143,37 @@ while read -r line ; do
         fi
     }
     Volume() {
-        VOLUME=$(amixer -D default sget Master,0 | awk '{if (NR == 6) print $5}' | sed 's/\[//;s/]//')
+        declare -i VOLUME=$(amixer -D default sget Master,0 | awk '{if (NR == 6) print $5}' | sed 's/\[//;s/]//;s/%//')
         VOLUMEICON='\uf6a9'
-        if [ ${VOLUME%\%} -ge 75 ];then
+        if [ ${VOLUME} -ge 75 ];then
             VOLUMEICON='\uf028'
-        elif [ ${VOLUME%\%} -ge 25 ];then
+        elif [ ${VOLUME} -ge 25 ];then
             VOLUMEICON='\uf027'
-        elif [ ${VOLUME%\%} -gt 0 ];then
+        elif [ ${VOLUME} -gt 0 ];then
             VOLUMEICON='\uf026'
         fi
-        echo -e "${VOLUMEICON} ${VOLUME}"
+        echo -e "${VOLUMEICON} ${VOLUME}%"
     }
     Coretemp() {
         # Package temp
-        PKGTEMP="$(cat /sys/devices/platform/coretemp.0/hwmon/hwmon6/temp1_input)"
-        echo -e "\uf2c7${PKGTEMP::-3}\u00b0C"
+        declare -i PKGTEMP="$(cat /sys/devices/platform/coretemp.0/hwmon/hwmon6/temp1_input)"
+        TEMPICON='\uf2cb'
+        if [ ${PKGTEMP::-3} -ge 85 ];then
+            TEMPICON='\uf2c7'
+        elif [ ${PKGTEMP::-3} -ge 75 ];then
+            TEMPICON='\uf2c8'
+        elif [ ${PKGTEMP::-3} -ge 65 ];then
+            TEMPICON='\uf2c9'
+        elif [ ${PKGTEMP::-3} -ge 55 ];then
+            TEMPICON='\uf2ca'
+        fi
+        echo -e "${TEMPICON}${PKGTEMP::-3}\u00b0C"
     }
 
-    printf "%s\n" "%{l}${wm}%{c}${title}%{r}$(Coretemp) $(Volume) $(Network) $(Battery) ${sys}"
+    Backlight() {
+        Brightness=$(echo "scale = 2;$(cat /sys/class/backlight/intel_backlight/brightness)/$(cat /sys/class/backlight/intel_backlight/max_brightness)" | bc | cut -d. -f2)
+        echo -e "\uf0eb${Brightness}%"
+    }
+
+    printf "%s\n" "%{l}${wm}%{c}${title}%{r}$(Backlight) $(Coretemp) $(Volume) $(Network) $(Battery) ${sys}"
 done
