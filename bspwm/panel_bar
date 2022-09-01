@@ -156,7 +156,7 @@ while read -r line ; do
     }
     Coretemp() {
         # Package temp
-        declare -i PKGTEMP="$(cat /sys/devices/platform/coretemp.0/hwmon/hwmon6/temp1_input)"
+        declare -i PKGTEMP="$(cat /sys/devices/platform/coretemp.0/hwmon/hwmon?/temp1_input)"
         TEMPICON='\uf2cb'
         if [ ${PKGTEMP::-3} -ge 85 ];then
             TEMPICON='\uf2c7'
