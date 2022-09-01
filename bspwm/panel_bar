@@ -137,7 +137,7 @@ while read -r line ; do
     }
     Network() {
         if [[ $(iwctl station wlan0 show | awk '{if (NR == 6) print $2}') == 'connected' ]];then
-            echo -e "\uf1eb$(iwctl station wlan0 show | awk '{if (NR == 7) print $3}')"
+            echo -e "\uf1eb$(iwctl station wlan0 show | awk '{if (NR == 7) print}' | sed 's/^\s*Connected network\s*//;s/\s*$//')"
         else
             echo -e "\uf127"
         fi

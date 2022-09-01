@@ -15,3 +15,5 @@ pushd ./clock
 make clean all
 sudo make install
 popd
+
+cp stalonetrayrc ~/.config/
