@@ -18,11 +18,6 @@ bspc subscribe report > "$PANEL_FIFO" &
 
 . panel_colors
 
-echo $PANEL_FONT
-echo $PANEL_FONT
-echo $PANEL_FONT
-echo $PANEL_FONT
-
 panel_bar < "$PANEL_FIFO" | lemonbar -a 32 -u 2 -n "$PANEL_WM_NAME" -g x$PANEL_HEIGHT -f "$PANEL_FONT" -f 'Font Awesome 6 Free:pixelsize=18' -f 'Font Awesome 6 Brands:pixelsize=18' -f 'Font Awesome 6 Free Solid:pixelsize=18' -F "$COLOR_DEFAULT_FG" -B "$COLOR_DEFAULT_BG" &
 
 wid=$(xdo id -m -a "$PANEL_WM_NAME")

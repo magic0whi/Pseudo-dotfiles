@@ -133,7 +133,13 @@ while read -r line ; do
         elif [ $(acpi --battery | sed 's/Battery [0-9]: //' | cut -d, -f1) = 'Charging' ];then
             PLUGICON='\uf0e7'
         fi
-        echo -e "${BATICON}${PLUGICON}${BATPERC}%"
+
+        if [ $(acpi --battery | sed 's/Battery [0-9]: //' | cut -d, -f1) = 'Discharging' ];then
+            PowerConsumption=$(echo "scale=2; $(cat /sys/class/power_supply/BAT0/voltage_now)*$(cat /sys/class/power_supply/BAT0/current_now)/1000000000000" | bc)
+            echo -e "${BATICON}${PLUGICON}${BATPERC}% \uf043${PowerConsumption}W"
+        else
+            echo -e "${BATICON}${PLUGICON}${BATPERC}%"
+        fi
     }
     Network() {
         if [[ $(iwctl station wlan0 show | awk '{if (NR == 6) print $2}') == 'connected' ]];then
@@ -175,10 +181,5 @@ while read -r line ; do
         echo -e "\uf0eb${Brightness}%"
     }
 
-    Power() {
-        PowerConsumption=$(echo "scale=2; $(cat /sys/class/power_supply/BAT0/voltage_now)*$(cat /sys/class/power_supply/BAT0/current_now)/1000000000000" | bc)
-        echo -e "\uf043${PowerConsumption}W"
-    }
-
-    printf "%s\n" "%{l}${wm}%{c}${title}%{r}$(Backlight) $(Coretemp) $(Volume) $(Network) $(Battery) $(Power) ${sys}"
+    printf "%s\n" "%{l}${wm}%{c}${title}%{r}$(Backlight) $(Coretemp) $(Volume) $(Network) $(Battery) ${sys}"
 done
