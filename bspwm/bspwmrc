@@ -1,8 +1,10 @@
 #! /bin/sh
 
+xrdb -merge ${HOME}/.Xresources
+
 pgrep -x sxhkd > /dev/null || sxhkd &
 pgrep -x panel > /dev/null || panel &
-pgreo -x stalonetray > /dev/null || stalonetray &
+pgrep -x stalonetray > /dev/null || stalonetray &
 
 bspc monitor -d I II III IV V VI VII VIII IX X
 
