@@ -1,0 +1,2 @@
+#!/usr/bin/sh
+exec env _JAVA_AWT_WM_NONREPARENTING=1 LD_PRELOAD=/usr/lib/libstdc++.so:/lib64/libfreetype.so LD_LIBRARY_PATH=/usr/lib/xorg/modules/drivers/ MESA_LOADER_DRIVER_OVERRIDE=iris /home/proteus/MATLAB/R2022b/bin/matlab -desktop
