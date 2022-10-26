@@ -57,6 +57,9 @@ alias Ci="clipboard -i"
 alias Co="clipboard -o"
 alias Copng="Co -target image/png"
 
+# MPV
+alias mpv='mpv --player-operation-mode=pseudo-gui'
+
 man() {
     LESS_TERMCAP_md=$'\e[01;31m' \
     LESS_TERMCAP_me=$'\e[0m' \
