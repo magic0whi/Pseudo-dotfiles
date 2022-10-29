@@ -1,0 +1,6 @@
+[Match]
+Name=enp46s0
+
+[Network]
+DHCP=yes
+MACVTAP=macvtap0
