@@ -17,3 +17,4 @@ sudo make install
 popd
 
 cp stalonetrayrc ~/.config/
+cp picom.conf ~/.config/picom/
