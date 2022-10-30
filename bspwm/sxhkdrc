@@ -8,7 +8,7 @@ super + Return
 
 # program launcher
 super + @space
-	systemd-run --user --scope dmenu_run
+	systemd-run --user --scope rofi -show drun
 
 # make sxhkd reload its configuration files:
 super + Escape

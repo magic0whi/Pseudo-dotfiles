@@ -18,3 +18,4 @@ popd
 
 cp stalonetrayrc ~/.config/
 cp picom.conf ~/.config/picom/
+cp polybar.ini ~/.config/polybar/config.ini

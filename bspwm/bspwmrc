@@ -2,14 +2,13 @@
 
 xrdb -merge ${HOME}/.Xresources
 
-pgrep -x sxhkd > /dev/null || sxhkd &
-pgrep -x panel > /dev/null || panel &
-pgrep -x stalonetray > /dev/null || stalonetray &
+sxhkd &
+feh --no-fehbg --bg-max ${HOME}/Pictures/99164757_p0.jpg &
 
 bspc monitor -d I II III IV V VI VII VIII IX X
 
 bspc config border_width         2
-bspc config window_gap          12
+bspc config window_gap           8
 
 bspc config split_ratio          0.52
 bspc config borderless_monocle   true
