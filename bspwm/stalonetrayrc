@@ -17,7 +17,7 @@ background "#777777"
 
 # decorations <decspec>      # set trays window decorations; possible values for
                              # decspec are: all, title, border, none
-decorations none
+decorations all
 
 # display <display name>     # as usual
 
