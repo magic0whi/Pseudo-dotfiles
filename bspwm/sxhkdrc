@@ -20,7 +20,7 @@ alt + l
 
 # take a screenshot
 Print
-    shotgun -f png ~/Pictures/Screenshot_$(date +'%Y%m%d_%H%M%S').png
+    flameshot gui
 
 # Volume Control
 XF86AudioLowerVolume
