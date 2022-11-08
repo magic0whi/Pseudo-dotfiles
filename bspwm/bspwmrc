@@ -3,7 +3,7 @@
 xrdb -merge ${HOME}/.Xresources
 
 sxhkd &
-feh --no-fehbg --bg-max ${HOME}/Pictures/99164757_p0.jpg &
+feh --no-fehbg --bg-max ${HOME}/Pictures/solarizedlightstripes.png &
 
 bspc monitor -d I II III IV V VI VII VIII IX X
 
