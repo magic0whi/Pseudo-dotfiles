@@ -1,4 +1,4 @@
 #!/bin/sh
 
-sudo cp matlab /usr/local/bin/
+cp matlab.desktop ~/.local/share/applications/
 cp java.opts ~/MATLAB/R2022b/bin/glnxa64/
