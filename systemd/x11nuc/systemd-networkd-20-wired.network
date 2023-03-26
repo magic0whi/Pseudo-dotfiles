@@ -3,3 +3,4 @@ Name=enp46s0
 
 [Network]
 MACVTAP=macvtap0
+IPv6AcceptRA=no
