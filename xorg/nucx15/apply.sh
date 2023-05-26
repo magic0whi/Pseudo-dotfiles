@@ -1,8 +1,16 @@
-#!/bin/bash
+#!/bin/sh
 
-sudo cp Xwrapper.config /etc/X11/Xwrapper.config
-sudo cp 10-monitor.conf /etc/X11/xorg.conf.d/10-monitor.conf
-sudo cp 30-touchpad.conf /etc/X11/xorg.conf.d/30-touchpad.conf
-cp Xresources.Xresources ~/.Xresources
+source ./files.sh
 
-cp drirc.drirc ~/.drirc
+for ((i=0; i<${#a1[@]}; i++))
+do
+    if [ ! -d ${a2[$i]} ]; then
+        echo Create directory ${a2[$i]}
+        mkdir -p ${a2[$i]}
+        echo Copy file ${a1[$i]%:*} to "${a2[$i]}/${a1[$i]#*:}"
+        cp ${a1[$i]%:*} "${a2[$i]}/${a1[$i]#*:}"
+    elif [[ $(sha256sum "${a1[$i]%:*}" | awk '{print $1}') != $(sha256sum "${a2[$i]}/${a1[$i]#*:}" | awk '{print $1}') ]]; then
+        echo Update file ${a1[$i]%:*} to "${a2[$i]}/${a1[$i]#*:}"
+        cp ${a1[$i]%:*} "${a2[$i]}/${a1[$i]#*:}"
+    fi
+done
