@@ -33,15 +33,27 @@ XF86AudioMicMute
     amixer -D default sset Capture,0 capture toggle
 
 XF86MonBrightnessDown
-    if [ $(cat /sys/class/backlight/intel_backlight/brightness) -le 9600 ]; \
+    BrightnessStep=9600; \
+    CurrentBrightness=$(cat /sys/class/backlight/intel_backlight/brightness); \
+    StagedBrightness=$((${CurrentBrightness} - ${BrightnessStep})); \
+    if [ ${CurrentBrightness} -le ${BrightnessStep} ]; \
     then \
         echo 0 > /sys/class/backlight/intel_backlight/brightness; \
     else \
-        echo $(($(cat /sys/class/backlight/intel_backlight/brightness)-9600)) > /sys/class/backlight/intel_backlight/brightness; \
+        echo ${StagedBrightness} > /sys/class/backlight/intel_backlight/brightness; \
     fi
  
 XF86MonBrightnessUp
-    echo $(($(cat /sys/class/backlight/intel_backlight/brightness)+9600)) > /sys/class/backlight/intel_backlight/brightness
+    BrightnessStep=9600; \
+    CurrentBrightness=$(cat /sys/class/backlight/intel_backlight/brightness); \
+    StagedBrightness=$((${CurrentBrightness} + ${BrightnessStep})); \
+    MaxBrightness=$(cat /sys/class/backlight/intel_backlight/max_brightness); \
+    if [ ${StagedBrightness} -ge ${MaxBrightness} ]; \
+    then \
+        echo ${MaxBrightness} > /sys/class/backlight/intel_backlight/brightness; \
+    else \
+        echo ${StagedBrightness} > /sys/class/backlight/intel_backlight/brightness; \
+    fi
 
 #
 # bspwm hotkeys
