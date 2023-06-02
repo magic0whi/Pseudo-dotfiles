@@ -1,0 +1,11 @@
+[Trigger]
+Type = Package
+Operation = Install
+Operation = Upgrade
+Target = vkd3d-proton-mingw-git
+
+[Action]
+Description = Install vkd3d libraries into game folder
+When = PostTransaction
+Exec = /bin/sh -c "InsDir='/home/proteus/.local/share/lutris/runtime/vkd3d/vkd3d-git'; ([ -d \${InsDir}/x64 ] || mkdir -p \${InsDir}/x64/) && cp /usr/share/vkd3d-proton/x64/{d3d12.dll,d3d12core.dll} \${InsDir}/x64/ && ([ -d \${InsDir}/x86 ] || mkdir -p \${InsDir}/x86/) && cp /usr/share/vkd3d-proton/x86/{d3d12.dll,d3d12core.dll} \${InsDir}/x86/ && cp /usr/share/vkd3d-proton/setup_vkd3d_proton.sh \${InsDir}/"
+
